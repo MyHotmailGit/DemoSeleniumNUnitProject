@@ -57,6 +57,7 @@ namespace DemoSeleniumNUnitProject.Tests.SampleSeleniumDocTests
 
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(2));
         wait.Until(d => LoginID.Displayed);
+            string s = LoginID.Text;
 
             // Login Application  
             LoginID.SendKeys("thedinfotechuser@gmail.com");

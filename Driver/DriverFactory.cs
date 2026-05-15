@@ -47,7 +47,11 @@ namespace DemoSeleniumNUnitProject.Driver
 
                     options.AddArgument("--start-maximized");
 
-                    Driver = new ChromeDriver(options);
+                    // options.ImplicitWaitTimeout = TimeSpan.FromSeconds(5);
+                    //options.PageLoadTimeout = TimeSpan.FromSeconds(5);
+                    //options.ScriptTimeout = TimeSpan.FromSeconds(5);
+
+                     Driver = new ChromeDriver(options);
                     Driver.Manage().Timeouts().ImplicitWait =
                         TimeSpan.FromSeconds(ConfigReader.ImplicitWait);
                     break;
