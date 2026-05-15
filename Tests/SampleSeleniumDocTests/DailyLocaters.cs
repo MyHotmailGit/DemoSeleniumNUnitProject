@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using DemoSeleniumNUnitProject.Driver;
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -15,7 +16,7 @@ namespace DemoSeleniumNUnitProject.Tests.SampleSeleniumDocTests
 {
     public class DailyLocaters
     {
-        public IWebDriver driver = new ChromeDriver();
+        public IWebDriver driver;// = new ChromeDriver();
 
         private AventStack.ExtentReports.ExtentReports extent; // Fixed the issue by fully qualifying the type name
         AventStack.ExtentReports.ExtentTest test;
@@ -37,7 +38,9 @@ namespace DemoSeleniumNUnitProject.Tests.SampleSeleniumDocTests
         [SetUp]
         public void BeforeTest()
         {
-           test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            DriverFactory Driver = new DriverFactory();
+            driver = Driver.CreateDriver();
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
         }
 
         [Test]
@@ -84,12 +87,13 @@ namespace DemoSeleniumNUnitProject.Tests.SampleSeleniumDocTests
                 test.Fail("Test Failed", captureScreenShot(driver, fileName));
                 test.Log(Status.Fail, "Test failed with log." + stackTrace);
             }            
-           extent.Flush();            
+           //extent.Flush();
+            driver.Dispose();
         }
         [OneTimeTearDown]
         public void TearDown()
         {
-            //driver.Dispose();
+            driver.Dispose();
             //driver.Quit();
         }
     }
